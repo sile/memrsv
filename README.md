@@ -1,4 +1,4 @@
-memsrv
+memrsv
 =======
 
 Unused memory reservation tool
