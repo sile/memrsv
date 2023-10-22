@@ -1,18 +1,19 @@
 extern crate byte_unit;
-#[macro_use]
 extern crate clap;
 
 use byte_unit::Byte;
-use clap::Arg;
+use clap::Parser;
 use std::thread;
 use std::time::Duration;
 
-fn main() {
-    let matches = app_from_crate!()
-        .arg(Arg::with_name("RESERVE_SIZE").index(1).required(true))
-        .get_matches();
+#[derive(Parser)]
+struct Args {
+    reserve_size: String,
+}
 
-    let size = matches.value_of("RESERVE_SIZE").unwrap();
+fn main() {
+    let args = Args::parse();
+    let size = args.reserve_size;
     let size =
         Byte::from_string(&size).unwrap_or_else(|e| panic!("Parse Error: {:?} ({:?})", size, e));
 
